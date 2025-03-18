@@ -54,9 +54,9 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-6">
     {#each filteredEvents as event (event.id)}
         <div class="bg-blue-50 p-4 rounded-lg shadow hover:shadow-lg transition border border-blue-300" animate:flip>
-            <p class="text-lg font-semibold text-blue-800">{event.title}</p>
-            <p class="text-blue-600 text-sm">ID: {event.id}</p>
-            <p class="text-blue-700 mt-2">Start Date: <span class="font-semibold">{event.start_date}</span></p>
+            <p>{event.title}</p>
+            <p>ID: {event.id}</p>
+            <p>Start Date: <span>{event.start_date}</span></p>
         </div>
     {/each}
 </div>
