@@ -6,92 +6,30 @@
     let { data, form } = $props();
 </script>
 
-<h1 class="dashboard-title">Admin Dashboard</h1>
+<div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Admin Dashboard</h1>
 
-<a href="/admin/locations/new" class="dashboard-link">Add a New Location</a>
+    <div class="flex justify-center mb-4">
+        <a href="/admin/locations/new" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">Add a New Location</a>
+    </div>
 
-{#if form && !form.success}
-    <Warning message={form.message}/>
-{/if}
+    {#if form && !form.success}
+        <Warning message={form.message} class="mb-4"/>
+    {/if}
 
-<div class="locations-container">
-	{#each data.locations as location (location.id)}
-		<div class="location-box" transition:slide>
-			<p class="location-details">
-				<strong>ID:</strong>
-				{location.id} |
-				<strong>Name:</strong>
-				{location.name} |
-				<strong>Street:</strong>
-				{location.street}
-			</p>
-			<form action="?/deleteLocation" method="POST" use:enhance class="delete-form">
-				<input type="hidden" name="id" value={location.id} />
-				<button type="submit" class="delete-button">Delete</button>
-			</form>
-		</div>
-	{/each}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {#each data.locations as location (location.id)}
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition border border-gray-200" transition:slide>
+                <p class="text-lg font-semibold text-gray-700">
+                    <strong class="text-gray-500">ID:</strong> {location.id} <br>
+                    <strong class="text-gray-500">Name:</strong> {location.name} <br>
+                    <strong class="text-gray-500">Street:</strong> {location.street}
+                </p>
+                <form action="?/deleteLocation" method="POST" use:enhance class="mt-2">
+                    <input type="hidden" name="id" value={location.id} />
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Delete</button>
+                </form>
+            </div>
+        {/each}
+    </div>
 </div>
-
-<style>
-	.dashboard-title {
-		font-size: 2em;
-		margin-bottom: 20px;
-		text-align: center;
-		color: #333;
-	}
-
-	.dashboard-link {
-		display: inline-block;
-		background-color: #007bff;
-		color: #fff;
-		text-decoration: none;
-		padding: 10px 15px;
-		border-radius: 4px;
-		margin-bottom: 20px;
-		transition: background-color 0.3s ease;
-	}
-
-	.dashboard-link:hover {
-		background-color: #0056b3;
-	}
-
-	.locations-container {
-		display: flex;
-		flex-direction: column;
-		gap: 15px;
-	}
-
-	.location-box {
-		background: #fff;
-		border-radius: 8px;
-		padding: 15px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	}
-
-	.location-details {
-		font-size: 14px;
-		color: #555;
-		margin-bottom: 10px;
-	}
-
-	.delete-form {
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	.delete-button {
-		background-color: #ff4d4d;
-		color: #fff;
-		border: none;
-		padding: 8px 12px;
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 14px;
-		transition: background-color 0.3s ease;
-	}
-
-	.delete-button:hover {
-		background-color: #cc0000;
-	}
-</style>
